@@ -13,6 +13,13 @@ interface MainContract {
         fun showTVRatedList(content: ArrayList<Result>)
         fun showTVRecommendedList(content: ArrayList<Result>)
         fun showMessage(message: String)
+        fun showMoviePopularListOffline(content: ArrayList<Result>)
+        fun showMovieRatedListOffline(content: ArrayList<Result>)
+        fun showMovieRecommendedListOffline(content: ArrayList<Result>)
+        fun showTVPopularListOffline(content: ArrayList<Result>)
+        fun showTVRatedListOffline(content: ArrayList<Result>)
+        fun showTVRecommendedListOffline(content: ArrayList<Result>)
+        fun connectionStatus(status: Boolean)
 
     }
 
@@ -25,6 +32,12 @@ interface MainContract {
         fun onGetTVRated(content: MovieData)
         fun onGetTVRecommendation(content: MovieData)
         fun onFailure(failure: String)
+        fun onGetMoviePopularOffline()
+        fun onGetMovieRatedOffline()
+        fun onGetMovieRecommendationOffline()
+        fun onGetTVPopularOffline()
+        fun onGetTVRatedOffline()
+        fun onGetTVRecommendationOffline()
     }
 
     interface Interactor{
