@@ -1,15 +1,15 @@
 package com.ismael.movieflexcontroller.main
 
 import android.app.Activity
-import android.graphics.Movie
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.ismael.movieflexbussinesslogic.network.CheckNetwork
 import com.ismael.movieflexpersistence.db.DataProccessor
 import com.ismael.movieflexpersistence.entity.movie.MovieData
-import com.ismael.movieflexpersistence.entity.movie.Result
+import com.ismael.movieflexpersistence.entity.movie.MovieResult
+import com.ismael.movieflexpersistence.entity.tv.TVData
+import com.ismael.movieflexpersistence.entity.tv.TVResult
 import com.ismael.movieflexsecurity.encryption.Security
-import java.lang.reflect.Type
 
 class MainPresenter(val activity: Activity, val view: MainContract.View):MainContract.Presenter {
     val interactor: MainContract.Interactor = MainInteractor(activity,this)
@@ -41,38 +41,38 @@ class MainPresenter(val activity: Activity, val view: MainContract.View):MainCon
     }
 
     override fun onGetMoviePopular(content: MovieData) {
-        val results:ArrayList<Result> = content.results as ArrayList<Result>
-        saveToSharedPreferences(content,"movie_popular")
+        val results:ArrayList<MovieResult> = content.results
+        saveMovieToSharedPreferences(content,"movie_popular")
         view.showMoviePopularList(results)
     }
 
     override fun onGetMovieRated(content: MovieData) {
-        val results:ArrayList<Result> = content.results as ArrayList<Result>
-        saveToSharedPreferences(content,"movie_rated")
+        val results:ArrayList<MovieResult> = content.results
+        saveMovieToSharedPreferences(content,"movie_rated")
         view.showMovieRatedList(results)
     }
 
     override fun onGetMovieRecommendation(content: MovieData) {
-        val results:ArrayList<Result> = content.results as ArrayList<Result>
-        saveToSharedPreferences(content,"movie_recommendation")
+        val results:ArrayList<MovieResult> = content.results
+        saveMovieToSharedPreferences(content,"movie_recommendation")
         view.showMovieRecommendedList(results)
     }
 
-    override fun onGetTVPopular(content: MovieData) {
-        val results:ArrayList<Result> = content.results as ArrayList<Result>
-        saveToSharedPreferences(content,"tv_popular")
+    override fun onGetTVPopular(content: TVData) {
+        val results:ArrayList<TVResult> = content.results
+        saveTVToSharedPreferences(content,"tv_popular")
         view.showTVPopularList(results)
     }
 
-    override fun onGetTVRated(content: MovieData) {
-        val results:ArrayList<Result> = content.results as ArrayList<Result>
-        saveToSharedPreferences(content,"tv_rated")
+    override fun onGetTVRated(content: TVData) {
+        val results:ArrayList<TVResult> = content.results
+        saveTVToSharedPreferences(content,"tv_rated")
         view.showTVRatedList(results)
     }
 
-    override fun onGetTVRecommendation(content: MovieData) {
-        val results:ArrayList<Result> = content.results as ArrayList<Result>
-        saveToSharedPreferences(content,"tv_recommendation")
+    override fun onGetTVRecommendation(content: TVData) {
+        val results:ArrayList<TVResult> = content.results
+        saveTVToSharedPreferences(content,"tv_recommendation")
         view.showTVRecommendedList(results)
     }
 
@@ -82,41 +82,57 @@ class MainPresenter(val activity: Activity, val view: MainContract.View):MainCon
     }
 
     override fun onGetMoviePopularOffline() {
-        view.showMoviePopularListOffline(getFromSharedPreferences("movie_popular"))
+        view.showMoviePopularListOffline(getMovieFromSharedPreferences("movie_popular"))
     }
 
     override fun onGetMovieRatedOffline() {
-        view.showMovieRatedListOffline(getFromSharedPreferences("movie_rated"))
+        view.showMovieRatedListOffline(getMovieFromSharedPreferences("movie_rated"))
     }
 
     override fun onGetMovieRecommendationOffline() {
-        view.showMovieRecommendedListOffline(getFromSharedPreferences("movie_recommendation"))
+        view.showMovieRecommendedListOffline(getMovieFromSharedPreferences("movie_recommendation"))
     }
 
     override fun onGetTVPopularOffline() {
-        view.showTVPopularListOffline(getFromSharedPreferences("tv_popular"))
+        view.showTVPopularListOffline(getTVFromSharedPreferences("tv_popular"))
     }
 
     override fun onGetTVRatedOffline() {
-        view.showTVRatedListOffline(getFromSharedPreferences("tv_rated"))
+        view.showTVRatedListOffline(getTVFromSharedPreferences("tv_rated"))
     }
 
     override fun onGetTVRecommendationOffline() {
-        view.showTVRecommendedListOffline(getFromSharedPreferences("tv_recommendation"))
+        view.showTVRecommendedListOffline(getTVFromSharedPreferences("tv_recommendation"))
     }
 
-    fun saveToSharedPreferences(content:MovieData, key: String){
+    fun saveMovieToSharedPreferences(content:MovieData, key: String){
         val toEncryp: String? = gson.toJson(content)
         val toSave: String? = security.encrypt(toEncryp)
         dataProcessor.setStr(key, toSave)
     }
-    fun getFromSharedPreferences(key: String?) : ArrayList<Result>{
+
+    fun saveTVToSharedPreferences(content:TVData, key: String){
+        val toEncryp: String? = gson.toJson(content)
+        val toSave: String? = security.encrypt(toEncryp)
+        dataProcessor.setStr(key, toSave)
+    }
+    fun getMovieFromSharedPreferences(key: String?) : ArrayList<MovieResult>{
         var movieData : MovieData? = null
         val toDecryp = dataProcessor.getStr(key)
         val toRetrieve = security.decrypt(toDecryp)
         val type = object : TypeToken<MovieData?>() {}.type
         movieData = gson.fromJson(toRetrieve,type)
-        val results:ArrayList<Result> = movieData!!.results as ArrayList<Result>
+        val results:ArrayList<MovieResult> = movieData!!.results
+        return results
+    }
+
+    fun getTVFromSharedPreferences(key: String?) : ArrayList<TVResult>{
+        var tvData : TVData? = null
+        val toDecryp = dataProcessor.getStr(key)
+        val toRetrieve = security.decrypt(toDecryp)
+        val type = object : TypeToken<TVData?>() {}.type
+        tvData = gson.fromJson(toRetrieve,type)
+        val results:ArrayList<TVResult> = tvData!!.results
         return results
     }
 }

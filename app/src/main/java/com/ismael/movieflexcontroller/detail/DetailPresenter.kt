@@ -1,7 +1,8 @@
 package com.ismael.movieflexcontroller.detail
 
 import android.app.Activity
-import com.ismael.movieflexpersistence.DetailData
+import com.ismael.movieflexpersistence.MovieDetailData
+import com.ismael.movieflexpersistence.entity.tv.detail.TVDetailData
 
 class DetailPresenter(val activity: Activity, val view: DetailContract.View) : DetailContract.Presenter {
     var interactor: DetailContract.Interactor = DetailInteractor(activity,this)
@@ -22,8 +23,12 @@ class DetailPresenter(val activity: Activity, val view: DetailContract.View) : D
         view.showMessage("Error on DetailPresenter " + failure)
     }
 
-    override fun onGetContentList(content: DetailData) {
-        view.onShowItemDetail(content)
+    override fun onGetMovieList(content: MovieDetailData) {
+        view.onShowMovieDetail(content)
+    }
+
+    override fun onGetTVList(content: TVDetailData) {
+        view.onShowTVDetail(content)
     }
 
 }

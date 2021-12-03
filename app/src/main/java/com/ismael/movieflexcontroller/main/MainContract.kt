@@ -1,24 +1,26 @@
 package com.ismael.movieflexcontroller.main
 
 import com.ismael.movieflexpersistence.entity.movie.MovieData
-import com.ismael.movieflexpersistence.entity.movie.Result
+import com.ismael.movieflexpersistence.entity.movie.MovieResult
+import com.ismael.movieflexpersistence.entity.tv.TVData
+import com.ismael.movieflexpersistence.entity.tv.TVResult
 
 interface MainContract {
 
     interface View{
-        fun showMoviePopularList(content: ArrayList<Result>)
-        fun showMovieRatedList(content: ArrayList<Result>)
-        fun showMovieRecommendedList(content: ArrayList<Result>)
-        fun showTVPopularList(content: ArrayList<Result>)
-        fun showTVRatedList(content: ArrayList<Result>)
-        fun showTVRecommendedList(content: ArrayList<Result>)
+        fun showMoviePopularList(content: ArrayList<MovieResult>)
+        fun showMovieRatedList(content: ArrayList<MovieResult>)
+        fun showMovieRecommendedList(content: ArrayList<MovieResult>)
+        fun showTVPopularList(content: ArrayList<TVResult>)
+        fun showTVRatedList(content: ArrayList<TVResult>)
+        fun showTVRecommendedList(content: ArrayList<TVResult>)
         fun showMessage(message: String)
-        fun showMoviePopularListOffline(content: ArrayList<Result>)
-        fun showMovieRatedListOffline(content: ArrayList<Result>)
-        fun showMovieRecommendedListOffline(content: ArrayList<Result>)
-        fun showTVPopularListOffline(content: ArrayList<Result>)
-        fun showTVRatedListOffline(content: ArrayList<Result>)
-        fun showTVRecommendedListOffline(content: ArrayList<Result>)
+        fun showMoviePopularListOffline(content: ArrayList<MovieResult>)
+        fun showMovieRatedListOffline(content: ArrayList<MovieResult>)
+        fun showMovieRecommendedListOffline(content: ArrayList<MovieResult>)
+        fun showTVPopularListOffline(content: ArrayList<TVResult>)
+        fun showTVRatedListOffline(content: ArrayList<TVResult>)
+        fun showTVRecommendedListOffline(content: ArrayList<TVResult>)
         fun connectionStatus(status: Boolean)
 
     }
@@ -28,9 +30,9 @@ interface MainContract {
         fun onGetMoviePopular(content: MovieData)
         fun onGetMovieRated(content: MovieData)
         fun onGetMovieRecommendation(content: MovieData)
-        fun onGetTVPopular(content: MovieData)
-        fun onGetTVRated(content: MovieData)
-        fun onGetTVRecommendation(content: MovieData)
+        fun onGetTVPopular(content: TVData)
+        fun onGetTVRated(content: TVData)
+        fun onGetTVRecommendation(content: TVData)
         fun onFailure(failure: String)
         fun onGetMoviePopularOffline()
         fun onGetMovieRatedOffline()

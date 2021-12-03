@@ -1,12 +1,15 @@
 package com.ismael.movieflexcontroller.detail
 
-import com.ismael.movieflexpersistence.DetailData
+import com.ismael.movieflexpersistence.MovieDetailData
+import com.ismael.movieflexpersistence.entity.tv.detail.TVDetailData
+
 
 interface DetailContract {
 
     interface View{
         fun onClosedActivity()
-        fun onShowItemDetail(content: DetailData)
+        fun onShowMovieDetail(content: MovieDetailData)
+        fun onShowTVDetail(content: TVDetailData)
         fun showMessage(message: String?)
     }
 
@@ -14,7 +17,8 @@ interface DetailContract {
         fun onClickButton()
         fun initItemData(item_id: Int, source: String?)
         fun onFailure(failure: String)
-        fun onGetContentList(content: DetailData)
+        fun onGetMovieList(content: MovieDetailData)
+        fun onGetTVList(content: TVDetailData)
     }
 
     interface Interactor{

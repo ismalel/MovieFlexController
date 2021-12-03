@@ -16,7 +16,7 @@ class DetailInteractor(val activity: Activity, val presenter: DetailContract.Pre
     override fun getMovieDetail(item_id: Int, api_key: String?) {
         movieRepository.getMovieDetail(item_id,api_key)
             ?.subscribe( { detailData ->
-                presenter.onGetContentList(detailData)
+                presenter.onGetMovieList(detailData)
             }){throwable: Throwable ->
                 presenter.onFailure(throwable.message.toString())
             }
@@ -26,7 +26,7 @@ class DetailInteractor(val activity: Activity, val presenter: DetailContract.Pre
     override fun getTVDetail(item_id: Int, api_key: String?) {
         tvRepository.getTVDetail(item_id,api_key)
             ?.subscribe( { detailData ->
-                presenter.onGetContentList(detailData)
+                presenter.onGetTVList(detailData)
             }){throwable: Throwable ->
                 presenter.onFailure(throwable.message.toString())
             }
