@@ -42,8 +42,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation 'com.github.ismalel:MovieFlexBussinessLogic:v0.1.0'
-    implementation 'com.github.ismalel:MovieFlexPersistence:v0.9.9'
-    implementation 'com.github.ismalel:MovieFlexAPI:v0.9.9'
+    implementation 'com.github.ismalel:MovieFlexPersistence:v0.9.9-alpha'
+    implementation 'com.github.ismalel:MovieFlexAPI:v0.9.9-alpha'
     implementation 'com.github.ismalel:MovieFlexSecurity:v0.1.0'
 
     //Implementacion de Retrofit
